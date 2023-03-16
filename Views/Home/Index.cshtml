@@ -1,0 +1,68 @@
+﻿@model List<EmployeeModel>
+
+@{
+    ViewData["Title"] = "Employee List";
+}
+<div class="row my-5">
+    <div class="col-12">
+        <a asp-action="Add" class="btn btn-primary">Add Employee</a>
+    </div>
+</div>
+<div class="row my-3">
+    <div class="col-12">
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                <h5>@TempData["ErrorMessage"]</h5>
+            </div>
+        }
+    </div>
+
+    <div class="col-12">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                <h5>@TempData["SuccessMessage"]</h5>
+            </div>
+        }
+    </div>
+    <div class="col-12  my-2">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Employee Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Department</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.EmployeeId</td>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            <td>@item.Gender</td>
+                            <td>@item.Department</td>
+                            <th class="text-center">
+                                <a class="btn btn-primary my-1 mx-1" asp-action="Add" asp-route-id="@item.EmployeeId">Edit</a>
+                                <a class="btn btn-danger my-1 mx-1" asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
+                            </th>
+                        </tr>
+                    }
+                }
+                else
+                {
+                          <tr>
+                              <td colspan="6" class="text-center"><b>No Data Available</b></td>
+                          </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
